@@ -1,4 +1,5 @@
 from pydantic import BaseModel, validator
+from typing import List
 
 
 class TotalValueSold(BaseModel):
@@ -22,3 +23,7 @@ class CommoditySales(BaseModel):
     total_quantity_sold: TotalQuantitySold
     total_kg_sold: TotalKgSold
     quantity_available: int
+
+
+class DailySales(BaseModel):
+    daily_prices: List[CommoditySales]
