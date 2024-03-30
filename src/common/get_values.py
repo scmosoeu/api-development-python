@@ -41,7 +41,7 @@ def get_mtd_value(str_value: str, split_by: str, remove_char: str=None) -> str:
         
         value = value.replace(remove_char, '')
 
-    return value
+    return value.strip()
 
 
 def convert_to_numeric(str_value: str, data_type: Literal['int', 'float']) -> int:
