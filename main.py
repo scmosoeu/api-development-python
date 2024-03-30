@@ -1,7 +1,14 @@
+import requests
+
+from bs4 import BeautifulSoup
 from fastapi import FastAPI
 
 app = FastAPI()
 
+URL = 'https://joburgmarket.co.za/jhbmarket/jhb-market/dailyprices.php'
+page = requests.get(URL)
+
+soup = BeautifulSoup(page.content, 'html.parser')
 
 @app.get('/{commodity}')
 def get_commodity(commodity: str) -> dict:
@@ -17,4 +24,7 @@ def get_commodity(commodity: str) -> dict:
     dict
     """
 
-    return {'commodity': commodity}
+    results = soup.select_one('#right2 p b')
+    
+
+    return {'commodity': results.text}
