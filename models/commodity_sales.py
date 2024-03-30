@@ -26,4 +26,5 @@ class CommoditySales(BaseModel):
 
 
 class DailySales(BaseModel):
+    information_date: str
     daily_prices: List[CommoditySales]
