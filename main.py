@@ -1,15 +1,15 @@
+import os
 import requests
 
-from bs4 import BeautifulSoup
+from dotenv import load_dotenv
 from fastapi import FastAPI
+
+from utils.page_connect_helper import load_page
 
 app = FastAPI()
 
-URL = 'https://joburgmarket.co.za/jhbmarket/jhb-market/dailyprices.php'
-page = requests.get(URL)
-
-soup = BeautifulSoup(page.content, 'html.parser')
-
+load_dotenv()
+URL = os.getenv('BASE_URL')
 
 @app.get('/{commodity}')
 def get_commodity(commodity: str) -> dict:
@@ -18,14 +18,11 @@ def get_commodity(commodity: str) -> dict:
     for the day
 
     Args:
-    commodity (str): The commodity name to display
+    commodity - The commodity name to display
         latest sales for
-
-    Returns:
-    dict
     """
 
+    soup = load_page(URL)
     results = soup.select_one('#right2 p b')
-    
 
     return {'commodity': results.text}
