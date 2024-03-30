@@ -10,6 +10,7 @@ page = requests.get(URL)
 
 soup = BeautifulSoup(page.content, 'html.parser')
 
+
 @app.get('/{commodity}')
 def get_commodity(commodity: str) -> dict:
     """
