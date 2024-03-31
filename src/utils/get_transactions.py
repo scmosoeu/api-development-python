@@ -24,6 +24,21 @@ def get_commodity_information(commodity: str, soup: BeautifulSoup) -> list:
     return results.parent.find_all('td')
 
 
+def get_commodity_containers_information(commodity: str, soup: BeautifulSoup) -> list:
+    """
+    Extract information for the selected commodity
+
+    Args
+    commodity - The commodity information that is being extracted
+    soup - A BeautifulSoup object to be queried when 
+    extracting data
+    """
+    
+    results = soup.find_all('tr')
+
+    return results
+
+
 def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
     """
     Extract the value parameter of the selected commodity from the
