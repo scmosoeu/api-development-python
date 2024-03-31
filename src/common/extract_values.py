@@ -1,6 +1,3 @@
-from common.clean_string import remove_character, strip_whitespaces
-
-
 def get_current_value(str_value: str, split_by: str, index_loc: int) -> str:
     """
     Get current numeric value from the parsed in string value
