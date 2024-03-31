@@ -20,14 +20,18 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
     """
 
     results = get_commodity_information(commodity, soup)
+    container = results[0].text
     quantity_available = remove_character(results[1].text, ',')
+    average_price_per_kg = remove_character(results[1].text, 'R')
 
     return ContainerSales(
-        container=,
+        container=container,
         quantity_available=quantity_available,
-        value_sold=,
-        quantity_sold=,
-        kg_sold=
+        value_sold=get_value_sold(commodity.lower(), 2, soup),
+        quantity_sold=get_quantity_sold(commodity.lower(), 3, soup),
+        quantity_sold=get_kg_sold(commodity.lower(), 4, soup),
+        kg_sold=convert_to_numeric(quantity_available, 'int'),
+        average_price_per_kg=average_price_per_kg
     )
 
 
