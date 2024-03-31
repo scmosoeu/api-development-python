@@ -5,7 +5,7 @@ from common.clean_string_helper import remove_character
 from common.numeric_conversion_helper import convert_to_numeric
 
 from models.container_sales import ContainerSales, DailyContainerSales
-from .get_transactions import get_commodity_containers_information, get_value_sold_containers, get_quantity_sold_containers, get_kg_sold_containers
+from .get_transactions import get_commodity_containers_information, get_value_sold_container, get_quantity_sold_container, get_kg_sold_container
 
 
 def get_container_sales(commodity: str, soup: BeautifulSoup) -> List[ContainerSales]:
@@ -33,13 +33,13 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> List[ContainerSa
         container_sale = ContainerSales(
             container=container,
             quantity_available=convert_to_numeric(quantity_available, 'int'),
-            value_sold=get_value_sold_containers(commodity.lower(), 2, soup),
-            quantity_sold=get_quantity_sold_containers(commodity.lower(), 3, soup),
-            kg_sold=get_kg_sold_containers(commodity.lower(), 4, soup),
+            value_sold=get_value_sold_container(row, 2),
+            quantity_sold=get_quantity_sold_container(row, 3),
+            kg_sold=get_kg_sold_container(row, 4),
             average_price_per_kg=convert_to_numeric(average_price_per_kg, 'float')
         )
 
-        container_sales.append(container_sale)
+        container_sales.append(container_sale.model_dump())
 
     return container_sales
 
@@ -61,6 +61,6 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
     return DailyContainerSales(
         information_date=information_date,
         commodity=commodity,
-        daily_prices=[container_sales.model_dump()]
+        daily_prices=container_sales
     )
     
