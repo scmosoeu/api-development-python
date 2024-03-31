@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
+from typing import Union
 
-from common.get_values import convert_to_numeric, get_current_value, get_mtd_value
+from common.clean_string import remove_character, strip_whitespaces
+from common.extract_values import get_current_value
+from common.numeric_conversion import convert_to_numeric
+
 from models.commodity_sales import (
     TotalKgSold, TotalValueSold, TotalQuantitySold, CommoditySales, DailySales
 )
@@ -22,6 +26,28 @@ def get_commodity(commodity: str, soup: BeautifulSoup) -> list:
 
     return results.parent.find_all('td')
 
+
+def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, float]:
+    
+    """
+    Get current numeric value from the input string
+
+    Args:
+    str_value - The string value upon which the current
+        value is going to be extracted 
+    index_loc - Location of the extracted value within an 
+        iterable
+    """
+
+    output_string = get_current_value(input_string, 'MTD:', index_loc)
+    output_string = remove_character(output_string, 'R', '')
+    output_string = remove_character(output_string, ',', '')
+    cleaned_string = strip_whitespaces(output_string)
+
+    return cleaned_string
+
+
+
 def get_value_sold(commodity: str, soup: BeautifulSoup) -> TotalValueSold:
     """
     Extract the parameters for total value sold
@@ -35,12 +61,12 @@ def get_value_sold(commodity: str, soup: BeautifulSoup) -> TotalValueSold:
     results = get_commodity(commodity, soup)
 
     value_sold_params = results[1].text
-    value_sold = get_current_value(value_sold_params, 'MTD:', 'R')
-    month_to_date = get_mtd_value(value_sold_params, 'MTD:', 'R')
+    value_sold = process_values_with_mtd(value_sold_params, 0)
+    month_to_date = process_values_with_mtd(value_sold_params, 1)
 
     return TotalValueSold(
-        value_sold=value_sold,
-        month_to_date=month_to_date
+        value_sold=convert_to_numeric(value_sold, 'float'),
+        month_to_date=convert_to_numeric(month_to_date, 'float')
     )
 
 
@@ -58,9 +84,9 @@ def get_quantity_sold(commodity: str, soup: BeautifulSoup) -> TotalQuantitySold:
     results = get_commodity(commodity, soup)
 
     qty_params = results[2].text
-
-    qty_sold = get_current_value(qty_params, 'MTD:')
-    month_to_date = get_mtd_value(qty_params, 'MTD:')
+    
+    qty_sold = process_values_with_mtd(qty_params, 0)
+    month_to_date = process_values_with_mtd(qty_params, 1)
 
     return TotalQuantitySold(
         quantity_sold=convert_to_numeric(qty_sold, 'int'),
@@ -82,8 +108,8 @@ def get_kg_sold(commodity: str, soup: BeautifulSoup) -> TotalKgSold:
 
     kg_params = results[3].text
 
-    kg_sold = get_current_value(kg_params, 'MTD:')
-    month_to_date = get_mtd_value(kg_params, 'MTD:')
+    kg_sold = process_values_with_mtd(kg_params, 0)
+    month_to_date = process_values_with_mtd(kg_params, 1)
 
     return TotalKgSold(
         kg_sold=convert_to_numeric(kg_sold, 'float'),
@@ -102,7 +128,7 @@ def get_commodity_sales(commodity: str, soup: BeautifulSoup) -> CommoditySales:
     """
 
     results = get_commodity(commodity, soup)
-    quantity_available = results[-1].text.replace(',', '')
+    quantity_available = remove_character(results[-1].text, ',')
 
     return CommoditySales(
         commodity=commodity.lower(),
