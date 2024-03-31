@@ -35,7 +35,7 @@ def get_commodity_containers_information(soup: BeautifulSoup) -> list:
     
     results = soup.find_all('tr')
 
-    return results[1].find_all('td')
+    return results
 
 
 def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
@@ -79,7 +79,7 @@ def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, flo
     return cleaned_string
 
 
-def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalValueSold:
+def get_value_sold_commodity(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalValueSold:
     """
     Extract the parameters for total value sold
 
@@ -91,10 +91,7 @@ def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: s
     level - level data is being extracted at. Options: commodity, container
     """
 
-    if level == 'commodity':
-        results = get_commodity_information(commodity, soup)
-    else:
-        results = get_commodity_containers_information(soup)
+    results = get_commodity_information(commodity, soup)
 
     value_sold_params = results[index_loc].text
     value_sold = process_values_with_mtd(value_sold_params, 0)
@@ -106,7 +103,31 @@ def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: s
     )
 
 
-def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalQuantitySold:
+def get_value_sold_containers(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalValueSold:
+    """
+    Extract the parameters for total value sold
+
+    Args
+    commodity - The commodity information that is being extracted
+    index_loc - Index location of the extracted value 
+    soup - A BeautifulSoup object to be queried when 
+    extracting data
+    level - level data is being extracted at. Options: commodity, container
+    """
+
+    results = get_commodity_information(commodity, soup)
+
+    value_sold_params = results[index_loc].text
+    value_sold = process_values_with_mtd(value_sold_params, 0)
+    month_to_date = process_values_with_mtd(value_sold_params, 1)
+
+    return TotalValueSold(
+        value_sold=convert_to_numeric(value_sold, 'float'),
+        month_to_date=convert_to_numeric(month_to_date, 'float')
+    )
+
+
+def get_quantity_sold_commodity(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalQuantitySold:
     """
     Extract the parameters for total quantity sold
 
@@ -117,10 +138,7 @@ def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level
     extracting data
     """
 
-    if level == 'commodity':
-        results = get_commodity_information(commodity, soup)
-    else:
-        results = get_commodity_containers_information(soup)
+    results = get_commodity_information(commodity, soup)
 
     qty_params = results[index_loc].text
     
@@ -133,7 +151,7 @@ def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level
     )
 
 
-def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalKgSold:
+def get_kg_sold_commodity(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalKgSold:
     """
     Extract the parameters for total kg sold
 
@@ -143,11 +161,8 @@ def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str=
     soup - A BeautifulSoup object to be queried when 
     extracting data
     """
-
-    if level == 'commodity':
-        results = get_commodity_information(commodity, soup)
-    else:
-        results = get_commodity_containers_information(soup)
+    
+    results = get_commodity_information(commodity, soup)
 
     kg_params = results[index_loc].text
 
