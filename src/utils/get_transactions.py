@@ -35,7 +35,7 @@ def get_commodity_containers_information(soup: BeautifulSoup) -> list:
     
     results = soup.find_all('tr')
 
-    return results
+    return results[1].find_all('td')
 
 
 def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
