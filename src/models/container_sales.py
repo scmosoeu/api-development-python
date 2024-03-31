@@ -11,8 +11,8 @@ class ContainerSales(BaseModel):
     kg_sold: TotalKgSold
     
 
-
 class DailyContainerSales(BaseModel):
     information_date: str
     commodity: str
     daily_prices: List[ContainerSales]
+    
