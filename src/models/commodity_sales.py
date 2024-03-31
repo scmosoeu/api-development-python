@@ -25,6 +25,6 @@ class CommoditySales(BaseModel):
     quantity_available: int
 
 
-class DailySales(BaseModel):
+class DailyCommoditySales(BaseModel):
     information_date: str
     daily_prices: CommoditySales

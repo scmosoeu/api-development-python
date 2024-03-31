@@ -6,7 +6,7 @@ from common.extract_values import get_current_value
 from common.numeric_conversion import convert_to_numeric
 
 from models.commodity_sales import (
-    TotalKgSold, TotalValueSold, TotalQuantitySold, CommoditySales, DailySales
+    TotalKgSold, TotalValueSold, TotalQuantitySold, CommoditySales, DailyCommoditySales
 )
 
 def get_commodity(commodity: str, soup: BeautifulSoup) -> list:
@@ -139,7 +139,7 @@ def get_commodity_sales(commodity: str, soup: BeautifulSoup) -> CommoditySales:
     )
 
 
-def get_daily_sales(commodity: str, soup: BeautifulSoup) -> DailySales:
+def get_daily_sales(commodity: str, soup: BeautifulSoup) -> DailyCommoditySales:
     """
     Extract the parameters for each commodity sales
 
@@ -151,7 +151,7 @@ def get_daily_sales(commodity: str, soup: BeautifulSoup) -> DailySales:
 
     information_date = soup.select_one('#right2 p b').text
 
-    return DailySales(
+    return DailyCommoditySales(
         information_date=information_date,
         daily_prices=get_commodity_sales(commodity, soup)
     )
