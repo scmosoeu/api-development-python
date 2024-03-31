@@ -1,2 +1,3 @@
 # api-development-python
-Develop an API using python programming language
+
+Develop a REST API using python programming language
