@@ -8,7 +8,7 @@ from models.container_sales import ContainerSales, DailyContainerSales
 from .get_transactions import get_commodity_containers_information, get_value_sold_container, get_quantity_sold_container, get_kg_sold_container
 
 
-def get_container_sales(commodity: str, soup: BeautifulSoup) -> List[ContainerSales]:
+def get_container_sales(soup: BeautifulSoup) -> List[ContainerSales]:
     """
     Extract the parameters for each commodity sales
 
@@ -56,7 +56,7 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
 
     information_date = soup.select_one('#right2 p b').text
 
-    container_sales = get_container_sales(commodity, soup)
+    container_sales = get_container_sales(soup)
 
     return DailyContainerSales(
         information_date=information_date,
