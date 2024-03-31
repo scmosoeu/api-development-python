@@ -25,11 +25,10 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
 
     return ContainerSales(
         container=container,
-        quantity_available=quantity_available,
+        quantity_available=convert_to_numeric(quantity_available, 'int'),
         value_sold=get_value_sold(commodity.lower(), 2, soup),
         quantity_sold=get_quantity_sold(commodity.lower(), 3, soup),
-        quantity_sold=get_kg_sold(commodity.lower(), 4, soup),
-        kg_sold=convert_to_numeric(quantity_available, 'int'),
+        kg_sold=get_kg_sold(commodity.lower(), 4, soup),
         average_price_per_kg=convert_to_numeric(average_price_per_kg, 'float')
     )
 
