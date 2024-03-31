@@ -31,7 +31,7 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
         quantity_sold=get_quantity_sold(commodity.lower(), 3, soup),
         quantity_sold=get_kg_sold(commodity.lower(), 4, soup),
         kg_sold=convert_to_numeric(quantity_available, 'int'),
-        average_price_per_kg=average_price_per_kg
+        average_price_per_kg=convert_to_numeric(average_price_per_kg, 'float')
     )
 
 
