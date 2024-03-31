@@ -23,9 +23,9 @@ def get_commodity_sales(commodity: str, soup: BeautifulSoup) -> CommoditySales:
 
     return CommoditySales(
         commodity=commodity.lower(),
-        total_value_sold=get_value_sold_commodity(commodity.lower(), 1, soup),
-        total_quantity_sold=get_quantity_sold_commodity(commodity.lower(), 2, soup),
-        total_kg_sold=get_kg_sold_commodity(commodity.lower(), 3, soup),
+        total_value_sold=get_value_sold_commodity(results, 1),
+        total_quantity_sold=get_quantity_sold_commodity(results, 2),
+        total_kg_sold=get_kg_sold_commodity(results, 3),
         quantity_available=convert_to_numeric(quantity_available, 'int')
     )
 
