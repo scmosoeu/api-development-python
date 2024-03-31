@@ -65,19 +65,20 @@ def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, flo
     return cleaned_string
 
 
-def get_value_sold(commodity: str, soup: BeautifulSoup) -> TotalValueSold:
+def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalValueSold:
     """
     Extract the parameters for total value sold
 
     Args
     commodity - The commodity information that is being extracted
+    index_loc - Index location of the extracted value 
     soup - A BeautifulSoup object to be queried when 
     extracting data
     """
 
-    results = get_commodity(commodity, soup)
+    results = get_commodity_information(commodity, soup)
 
-    value_sold_params = results[1].text
+    value_sold_params = results[index_loc].text
     value_sold = process_values_with_mtd(value_sold_params, 0)
     month_to_date = process_values_with_mtd(value_sold_params, 1)
 
@@ -87,20 +88,21 @@ def get_value_sold(commodity: str, soup: BeautifulSoup) -> TotalValueSold:
     )
 
 
-def get_quantity_sold(commodity: str, soup: BeautifulSoup) -> TotalQuantitySold:
+def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalQuantitySold:
     """
     Extract the parameters for total quantity sold
 
     Args
     commodity - The commodity information that is being extracted
+    index_loc - Index location of the extracted value 
     soup - A BeautifulSoup object to be queried when 
     extracting data
     """
 
 
-    results = get_commodity(commodity, soup)
+    results = get_commodity_information(commodity, soup)
 
-    qty_params = results[2].text
+    qty_params = results[index_loc].text
     
     qty_sold = process_values_with_mtd(qty_params, 0)
     month_to_date = process_values_with_mtd(qty_params, 1)
@@ -111,19 +113,20 @@ def get_quantity_sold(commodity: str, soup: BeautifulSoup) -> TotalQuantitySold:
     )
 
 
-def get_kg_sold(commodity: str, soup: BeautifulSoup) -> TotalKgSold:
+def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalKgSold:
     """
     Extract the parameters for total kg sold
 
     Args
     commodity - The commodity information that is being extracted
+    index_loc - Index location of the extracted value 
     soup - A BeautifulSoup object to be queried when 
     extracting data
     """
 
-    results = get_commodity(commodity, soup)
+    results = get_commodity_information(commodity, soup)
 
-    kg_params = results[3].text
+    kg_params = results[index_loc].text
 
     kg_sold = process_values_with_mtd(kg_params, 0)
     month_to_date = process_values_with_mtd(kg_params, 1)
