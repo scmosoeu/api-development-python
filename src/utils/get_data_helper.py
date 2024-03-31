@@ -5,9 +5,8 @@ from common.clean_string import remove_character, strip_whitespaces
 from common.extract_values import get_current_value
 from common.numeric_conversion import convert_to_numeric
 
-from models.commodity_sales import (
-    TotalKgSold, TotalValueSold, TotalQuantitySold, CommoditySales, DailyCommoditySales
-)
+from models.commodity_sales import CommoditySales, DailyCommoditySales
+from models.transactions import TotalKgSold, TotalQuantitySold, TotalValueSold
 
 def get_commodity(commodity: str, soup: BeautifulSoup) -> list:
     """

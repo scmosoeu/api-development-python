@@ -1,21 +1,7 @@
 from pydantic import BaseModel, validator
 from typing import List
 
-
-class TotalValueSold(BaseModel):
-    value_sold: float
-    month_to_date: float 
-
-
-class TotalQuantitySold(BaseModel):
-    quantity_sold: int
-    month_to_date: int
-
-
-class TotalKgSold(BaseModel):
-    kg_sold: float
-    month_to_date: float 
-
+from .transactions import TotalKgSold, TotalQuantitySold, TotalValueSold
 
 class CommoditySales(BaseModel):
     commodity: str
