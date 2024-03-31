@@ -3,7 +3,7 @@ from common.numeric_conversion import convert_to_numeric
 
 def test_convert_to_numeric_int():
 
-    input_string = '123'
+    input_string = '123.00'
     
     output = convert_to_numeric(input_string, 'int')
 

@@ -13,7 +13,7 @@ def convert_to_numeric(str_value: str, data_type: Literal['int', 'float']) -> in
     """
 
     if data_type == 'int':
-        numeric_value = int(str_value)
+        numeric_value = int(float(str_value))
     elif data_type == 'float':
         numeric_value = float(str_value)
 
