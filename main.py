@@ -53,9 +53,6 @@ def get_container_sales(commodity: str) -> dict:
 
     soup = load_page(updated_url)
 
-    print('*' * 50)
-    print('Running with updated soup.....')
-    print(updated_url)
     container_sales = get_daily_container_sales(commodity, soup)
 
     return container_sales.model_dump()
