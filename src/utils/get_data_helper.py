@@ -26,6 +26,27 @@ def get_commodity(commodity: str, soup: BeautifulSoup) -> list:
     return results.parent.find_all('td')
 
 
+def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
+    """
+    Extract the value parameter of the selected commodity from the
+    drop down
+
+    Args
+    commodity - The commodity information that is being extracted
+    soup - A BeautifulSoup object to be queried when 
+    extracting data
+    """
+    
+    results = soup.find('select')
+    commodity_element = results.find_all(
+        'option', string=lambda text: commodity in text.lower()
+    )[0]
+
+    commodity_value = commodity_element.get('value')
+
+    return commodity_value
+
+
 def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, float]:
     
     """
@@ -138,7 +159,7 @@ def get_commodity_sales(commodity: str, soup: BeautifulSoup) -> CommoditySales:
     )
 
 
-def get_daily_sales(commodity: str, soup: BeautifulSoup) -> DailyCommoditySales:
+def get_daily_commodity_sales(commodity: str, soup: BeautifulSoup) -> DailyCommoditySales:
     """
     Extract the parameters for each commodity sales
 
