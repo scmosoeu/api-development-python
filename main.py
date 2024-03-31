@@ -27,4 +27,4 @@ def get_commodity(commodity: str) -> dict:
 
     commodity_sales = get_daily_sales(commodity, soup)
 
-    return commodity_sales.dict()
+    return commodity_sales.model_dump()
