@@ -9,6 +9,7 @@ class ContainerSales(BaseModel):
     value_sold: TotalValueSold
     quantity_sold: TotalQuantitySold
     kg_sold: TotalKgSold
+    average_price_per_kg: float
     
 
 class DailyContainerSales(BaseModel):
