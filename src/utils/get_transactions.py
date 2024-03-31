@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from typing import Union
+from typing import Union, Literal
 
 from common.clean_string_helper import remove_character, strip_whitespaces
 from common.extract_values_helper import get_current_value
@@ -79,7 +79,7 @@ def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, flo
     return cleaned_string
 
 
-def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalValueSold:
+def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalValueSold:
     """
     Extract the parameters for total value sold
 
@@ -88,9 +88,13 @@ def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> Total
     index_loc - Index location of the extracted value 
     soup - A BeautifulSoup object to be queried when 
     extracting data
+    level - level data is being extracted at. Options: commodity, container
     """
 
-    results = get_commodity_information(commodity, soup)
+    if level == 'commodity':
+        results = get_commodity_information(commodity, soup)
+    else:
+        results = get_commodity_containers_information(soup)
 
     value_sold_params = results[index_loc].text
     value_sold = process_values_with_mtd(value_sold_params, 0)
@@ -102,7 +106,7 @@ def get_value_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> Total
     )
 
 
-def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalQuantitySold:
+def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalQuantitySold:
     """
     Extract the parameters for total quantity sold
 
@@ -113,8 +117,10 @@ def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> To
     extracting data
     """
 
-
-    results = get_commodity_information(commodity, soup)
+    if level == 'commodity':
+        results = get_commodity_information(commodity, soup)
+    else:
+        results = get_commodity_containers_information(soup)
 
     qty_params = results[index_loc].text
     
@@ -127,7 +133,7 @@ def get_quantity_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> To
     )
 
 
-def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalKgSold:
+def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup, level: str='commodity') -> TotalKgSold:
     """
     Extract the parameters for total kg sold
 
@@ -138,7 +144,10 @@ def get_kg_sold(commodity: str, index_loc: int, soup: BeautifulSoup) -> TotalKgS
     extracting data
     """
 
-    results = get_commodity_information(commodity, soup)
+    if level == 'commodity':
+        results = get_commodity_information(commodity, soup)
+    else:
+        results = get_commodity_containers_information(soup)
 
     kg_params = results[index_loc].text
 
