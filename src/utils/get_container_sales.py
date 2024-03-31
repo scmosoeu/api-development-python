@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from typing import Union
 
 from common.clean_string_helper import remove_character
 from common.numeric_conversion_helper import convert_to_numeric
@@ -26,9 +25,9 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
     return ContainerSales(
         container=container,
         quantity_available=convert_to_numeric(quantity_available, 'int'),
-        value_sold=get_value_sold(commodity.lower(), 2, soup),
-        quantity_sold=get_quantity_sold(commodity.lower(), 3, soup),
-        kg_sold=get_kg_sold(commodity.lower(), 4, soup),
+        value_sold=get_value_sold(commodity.lower(), 2, soup, 'container'),
+        quantity_sold=get_quantity_sold(commodity.lower(), 3, soup, 'container'),
+        kg_sold=get_kg_sold(commodity.lower(), 4, soup, 'container'),
         average_price_per_kg=convert_to_numeric(average_price_per_kg, 'float')
     )
 
@@ -45,9 +44,11 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
 
     information_date = soup.select_one('#right2 p b').text
 
+    container_sales = get_container_sales(commodity, soup)
+
     return DailyContainerSales(
         information_date=information_date,
         commodity=commodity,
-        daily_prices=get_container_sales(commodity, soup)
+        daily_prices=[container_sales.model_dump()]
     )
     
