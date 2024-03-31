@@ -1,4 +1,4 @@
-from common.extract_values import get_current_value
+from common.extract_values_helper import get_current_value
 
 
 def test_get_current_values_first():

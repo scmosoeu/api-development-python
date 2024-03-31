@@ -1,4 +1,4 @@
-from common.numeric_conversion import convert_to_numeric
+from common.numeric_conversion_helper import convert_to_numeric
 
 
 def test_convert_to_numeric_int():

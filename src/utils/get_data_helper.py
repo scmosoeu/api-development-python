@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 from typing import Union
 
-from common.clean_string import remove_character, strip_whitespaces
-from common.extract_values import get_current_value
-from common.numeric_conversion import convert_to_numeric
+from common.clean_string_helper import remove_character, strip_whitespaces
+from common.extract_values_helper import get_current_value
+from common.numeric_conversion_helper import convert_to_numeric
 
 from models.commodity_sales import CommoditySales, DailyCommoditySales
+from models.container_sales import ContainerSales, DailyContainerSales
 from models.transactions import TotalKgSold, TotalQuantitySold, TotalValueSold
 
 def get_commodity(commodity: str, soup: BeautifulSoup) -> list:
@@ -160,6 +161,24 @@ def get_commodity_sales(commodity: str, soup: BeautifulSoup) -> CommoditySales:
 
 
 def get_daily_commodity_sales(commodity: str, soup: BeautifulSoup) -> DailyCommoditySales:
+    """
+    Extract the parameters for each commodity sales
+
+    Args
+    commodity - The commodity information that is being extracted
+    soup - A BeautifulSoup object to be queried when 
+    extracting data
+    """
+
+    information_date = soup.select_one('#right2 p b').text
+
+    return DailyCommoditySales(
+        information_date=information_date,
+        daily_prices=get_commodity_sales(commodity, soup)
+    )
+
+
+def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyCommoditySales:
     """
     Extract the parameters for each commodity sales
 

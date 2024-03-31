@@ -4,7 +4,7 @@ import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from utils.get_data_helper import get_daily_commodity_sales, get_commodity_value
+from utils.get_data_helper import get_daily_commodity_sales, get_commodity_value, get_daily_container_sales
 from utils.page_connect_helper import load_page
 
 app = FastAPI()
@@ -51,6 +51,6 @@ def get_container_sales(commodity: str) -> dict:
 
     soup = load_page(updated_url)
 
-    container_sales = get_daily_commodity_sales(commodity, soup)
+    container_sales = get_daily_container_sales(commodity, soup)
 
     return container_sales.model_dump()
