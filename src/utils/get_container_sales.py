@@ -1,8 +1,7 @@
 from bs4 import BeautifulSoup
 from typing import Union
 
-from common.clean_string_helper import remove_character, strip_whitespaces
-from common.extract_values_helper import get_current_value
+from common.clean_string_helper import remove_character
 from common.numeric_conversion_helper import convert_to_numeric
 
 from models.container_sales import ContainerSales, DailyContainerSales
@@ -22,7 +21,7 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
     results = get_commodity_information(commodity, soup)
     container = results[0].text
     quantity_available = remove_character(results[1].text, ',')
-    average_price_per_kg = remove_character(results[1].text, 'R')
+    average_price_per_kg = remove_character(results[-1].text, 'R')
 
     return ContainerSales(
         container=container,
@@ -49,6 +48,7 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
 
     return DailyContainerSales(
         information_date=information_date,
-        daily_prices=get_commodity_sales(commodity, soup)
+        commodity=commodity,
+        daily_prices=get_container_sales(commodity, soup)
     )
     
