@@ -5,7 +5,7 @@ from common.clean_string_helper import remove_character
 from common.numeric_conversion_helper import convert_to_numeric
 
 from models.container_sales import ContainerSales, DailyContainerSales
-from .get_transactions import get_commodity_information, get_value_sold, get_quantity_sold, get_kg_sold
+from .get_transactions import get_commodity_containers_information, get_value_sold, get_quantity_sold, get_kg_sold
 
 
 def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
@@ -18,7 +18,7 @@ def get_container_sales(commodity: str, soup: BeautifulSoup) -> ContainerSales:
     extracting data
     """
 
-    results = get_commodity_information(commodity, soup)
+    results = get_commodity_containers_information(soup)
     container = results[0].text
     quantity_available = remove_character(results[1].text, ',')
     average_price_per_kg = remove_character(results[-1].text, 'R')
