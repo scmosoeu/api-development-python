@@ -15,7 +15,7 @@ load_dotenv()
 URL = os.getenv('BASE_URL')
 
 @app.get('/{commodity}')
-def get_commodity_sales(commodity: str) -> dict:
+def commodity_sales(commodity: str) -> dict:
     """
     Get information of the specified commodity 
     for the day
@@ -33,7 +33,7 @@ def get_commodity_sales(commodity: str) -> dict:
 
 
 @app.get('/container/{commodity}')
-def get_container_sales(commodity: str) -> dict:
+def container_sales(commodity: str) -> dict:
     """
     Get information of the specified commodity 
     filtered by container type for the day
