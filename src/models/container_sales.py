@@ -4,13 +4,15 @@ from typing import List
 from .transactions import TotalKgSold, TotalQuantitySold, TotalValueSold
 
 class ContainerSales(BaseModel):
-    commodity: str
-    total_value_sold: TotalValueSold
-    total_quantity_sold: TotalQuantitySold
-    total_kg_sold: TotalKgSold
+    container: str
     quantity_available: int
+    value_sold: TotalValueSold
+    quantity_sold: TotalQuantitySold
+    kg_sold: TotalKgSold
+    
 
 
 class DailyContainerSales(BaseModel):
     information_date: str
-    daily_prices: ContainerSales
+    commodity: str
+    daily_prices: List[ContainerSales]
