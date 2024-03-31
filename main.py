@@ -4,7 +4,7 @@ import requests
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from utils.get_data_helper import get_daily_commodity_sales, get_commodity_value, get_daily_container_sales
+from utils.get_commodity_sales import get_daily_commodity_sales, get_commodity_value, get_daily_container_sales
 from utils.page_connect_helper import load_page
 
 app = FastAPI()
