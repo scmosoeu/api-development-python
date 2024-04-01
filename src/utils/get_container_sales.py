@@ -33,9 +33,9 @@ def get_container_sales(soup: BeautifulSoup) -> List[ContainerSales]:
         container_sale = ContainerSales(
             container=container,
             quantity_available=convert_to_numeric(quantity_available, 'int'),
-            value_sold=get_value_sold_container(row, 2),
-            quantity_sold=get_quantity_sold_container(row, 3),
-            kg_sold=get_kg_sold_container(row, 4),
+            total_value_sold=get_value_sold_container(row, 2),
+            total_quantity_sold=get_quantity_sold_container(row, 3),
+            total_kg_sold=get_kg_sold_container(row, 4),
             average_price_per_kg=convert_to_numeric(average_price_per_kg, 'float')
         )
 
