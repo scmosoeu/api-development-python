@@ -32,7 +32,7 @@ def commodity_sales(commodity: str) -> dict:
     return commodity_sales.model_dump()
 
 
-@app.get('/container/{commodity}')
+@app.get('/containers/{commodity}')
 def container_sales(commodity: str) -> dict:
     """
     Get information of the specified commodity 
