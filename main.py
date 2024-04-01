@@ -7,7 +7,7 @@ from fastapi import FastAPI
 from utils.get_commodity_sales import get_daily_commodity_sales
 from utils.get_container_sales import get_daily_container_sales
 from utils.get_transactions import get_commodity_value
-from utils.page_connect_helper import load_page
+from common.page_connect_helper import load_page
 
 app = FastAPI()
 
