@@ -2,7 +2,7 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status, HTTPException
 
 from utils.get_commodity_sales import get_daily_commodity_sales
 from utils.get_container_sales import get_daily_container_sales
@@ -26,7 +26,7 @@ def commodity_sales(commodity: str) -> dict:
     """
 
     soup = load_page(URL)
-
+    
     commodity_sales = get_daily_commodity_sales(commodity, soup)
 
     return commodity_sales.model_dump()

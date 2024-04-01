@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from fastapi import HTTPException, Response, status
 from typing import Union, Literal
 
 from common.clean_string_helper import remove_character, strip_whitespaces
@@ -15,13 +16,19 @@ def get_commodity_information(commodity: str, soup: BeautifulSoup) -> list:
     soup - A BeautifulSoup object to be queried when 
     extracting data
     """
-    
+
     results = soup.find_all(
         class_='tleft2',
-        string=lambda text: commodity in text.lower()
-    )[0]
+        string=lambda text: commodity == text.lower()
+    )
 
-    return results.parent.find_all('td')
+    if not results:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'{commodity} does not exist.'
+        )
+
+    return results[0].parent.find_all('td')
 
 
 def get_commodity_containers_information(soup: BeautifulSoup) -> list:
@@ -51,10 +58,16 @@ def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
     
     results = soup.find('select')
     commodity_element = results.find_all(
-        'option', string=lambda text: commodity in text.lower()
-    )[0]
+        'option', string=lambda text: commodity == text.lower()
+    )
 
-    commodity_value = commodity_element.get('value')
+    if not commodity_element:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f'{commodity} does not exist.'
+        )
+
+    commodity_value = commodity_element[0].get('value')
 
     return commodity_value
 
