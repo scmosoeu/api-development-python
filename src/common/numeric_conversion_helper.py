@@ -1,7 +1,7 @@
-from typing import Literal
+from typing import Literal, Union
 
 
-def convert_to_numeric(str_value: str, data_type: Literal['int', 'float']) -> int:
+def convert_to_numeric(str_value: str, data_type: Literal['int', 'float']) -> Union[int, float]:
     """
     Convert the parsed string to a numeric value
 

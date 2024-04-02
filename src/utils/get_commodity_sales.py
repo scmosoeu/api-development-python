@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from typing import Union
 
 from common.clean_string_helper import remove_character
 from common.numeric_conversion_helper import convert_to_numeric

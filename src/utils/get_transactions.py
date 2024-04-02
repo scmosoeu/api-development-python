@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
-from fastapi import HTTPException, Response, status
-from typing import Union, Literal
+from fastapi import HTTPException, status
 
 from common.clean_string_helper import remove_character, strip_whitespaces
 from common.extract_values_helper import get_current_value
@@ -72,7 +71,7 @@ def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
     return commodity_value
 
 
-def process_values_with_mtd(input_string: str, index_loc: int) -> Union[int, float]:
+def process_values_with_mtd(input_string: str, index_loc: int) -> str:
     
     """
     Get current numeric value from the input string
