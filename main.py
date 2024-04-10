@@ -2,7 +2,7 @@ import os
 import requests
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, Response, status, HTTPException
+from fastapi import FastAPI
 
 from utils.get_commodity_sales import get_daily_commodity_sales
 from utils.get_container_sales import get_daily_container_sales
