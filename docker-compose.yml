@@ -5,7 +5,7 @@ services:
   db:
     container_name: postgresql_db
     image: postgres
-    restart: always # If conatiner fails or closes down, it will try activate again
+    restart: always # If container fails or closes down, it will try activate again
     ports:
       - 5432:5432 # Only access to container
     environment:
