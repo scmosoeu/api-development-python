@@ -7,7 +7,7 @@ services:
     image: postgres
     restart: always # If container fails or closes down, it will try activate again
     ports:
-      - 5432:5432 # Only access to container
+      - 5432:5432 # Only access to container, format: (Host:Container)
     environment:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
