@@ -2,7 +2,7 @@
 
 Develop a REST API using python programming language
 
-Below are the example outputs for the following endpoints
+Below are the example outputs for the following endpoints when requesting information about almonds.
 
 ```bash
 /almonds
