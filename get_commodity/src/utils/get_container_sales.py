@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 from typing import List
 
-from common.clean_string_helper import remove_character
-from common.numeric_conversion_helper import convert_to_numeric
+from src.common.clean_string_helper import remove_character
+from src.common.numeric_conversion_helper import convert_to_numeric
 
-from models.container_sales import ContainerSales, DailyContainerSales
+from src.models.container_sales import ContainerSales, DailyContainerSales
 from .get_transactions import get_commodity_containers_information, get_value_sold_container, get_quantity_sold_container, get_kg_sold_container
 
 
@@ -14,7 +14,7 @@ def get_container_sales(soup: BeautifulSoup) -> List[ContainerSales]:
 
     Args
     commodity - The commodity information that is being extracted
-    soup - A BeautifulSoup object to be queried when 
+    soup - A BeautifulSoup object to be queried when
     extracting data
     """
 
@@ -50,7 +50,7 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
 
     Args
     commodity - The commodity information that is being extracted
-    soup - A BeautifulSoup object to be queried when 
+    soup - A BeautifulSoup object to be queried when
     extracting data
     """
 
@@ -63,4 +63,3 @@ def get_daily_container_sales(commodity: str, soup: BeautifulSoup) -> DailyConta
         commodity=commodity,
         daily_prices=container_sales
     )
-    

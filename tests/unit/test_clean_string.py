@@ -1,4 +1,4 @@
-from common.clean_string_helper import remove_character, strip_whitespaces
+from src.common.clean_string_helper import remove_character, strip_whitespaces
 
 
 def test_remove_character():

@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from get_commodity.main import app
+from main import app
 
 client = TestClient(app)
 

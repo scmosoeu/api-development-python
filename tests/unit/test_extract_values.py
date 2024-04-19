@@ -1,8 +1,8 @@
-from common.extract_values_helper import get_current_value
+from src.common.extract_values_helper import get_current_value
 
 
 def test_get_current_values_first():
-    
+
     input_string = 'R10.00MTD:R70.00'
     expected_output = 'R10.00'
     output = get_current_value(input_string, 'MTD:', 0)
@@ -11,7 +11,7 @@ def test_get_current_values_first():
 
 
 def test_get_current_values_second():
-    
+
     input_string = 'R10.00MTD:R70.00'
     expected_output = 'R70.00'
     output = get_current_value(input_string, 'MTD:', 1)

@@ -3,10 +3,10 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from utils.get_commodity_sales import get_daily_commodity_sales
-from utils.get_container_sales import get_daily_container_sales
-from utils.get_transactions import get_commodity_value
-from common.page_connect_helper import load_page
+from src.utils.get_commodity_sales import get_daily_commodity_sales
+from src.utils.get_container_sales import get_daily_container_sales
+from src.utils.get_transactions import get_commodity_value
+from src.common.page_connect_helper import load_page
 
 app = FastAPI()
 
@@ -16,7 +16,7 @@ URL = os.getenv('BASE_URL')
 @app.get('/{commodity}')
 def commodity_sales(commodity: str) -> dict:
     """
-    Get information of the specified commodity 
+    Get information of the specified commodity
     for the day
 
     Args:
@@ -25,7 +25,7 @@ def commodity_sales(commodity: str) -> dict:
     """
 
     soup = load_page(URL)
-    
+
     commodity_sales = get_daily_commodity_sales(commodity, soup)
 
     return commodity_sales.model_dump()
@@ -34,7 +34,7 @@ def commodity_sales(commodity: str) -> dict:
 @app.get('/containers/{commodity}')
 def container_sales(commodity: str) -> dict:
     """
-    Get information of the specified commodity 
+    Get information of the specified commodity
     filtered by container type for the day
 
     Args:
