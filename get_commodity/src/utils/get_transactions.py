@@ -12,7 +12,7 @@ def get_commodity_information(commodity: str, soup: BeautifulSoup) -> list:
 
     Args
     commodity - The commodity information that is being extracted
-    soup - A BeautifulSoup object to be queried when 
+    soup - A BeautifulSoup object to be queried when
     extracting data
     """
 
@@ -35,10 +35,10 @@ def get_commodity_containers_information(soup: BeautifulSoup) -> list:
     Extract information for the selected commodity
 
     Args
-    soup - A BeautifulSoup object to be queried when 
+    soup - A BeautifulSoup object to be queried when
     extracting data
     """
-    
+
     results = soup.find_all('tr')
 
     return results
@@ -51,10 +51,10 @@ def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
 
     Args
     commodity - The commodity information that is being extracted
-    soup - A BeautifulSoup object to be queried when 
+    soup - A BeautifulSoup object to be queried when
     extracting data
     """
-    
+
     results = soup.find('select')
     commodity_element = results.find_all(
         'option', string=lambda text: commodity == text.lower()
@@ -72,14 +72,14 @@ def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
 
 
 def process_values_with_mtd(input_string: str, index_loc: int) -> str:
-    
+
     """
     Get current numeric value from the input string
 
     Args:
     str_value - The string value upon which the current
-        value is going to be extracted 
-    index_loc - Location of the extracted value within an 
+        value is going to be extracted
+    index_loc - Location of the extracted value within an
         iterable
     """
 
@@ -139,7 +139,7 @@ def get_quantity_sold_commodity(element_tags: list, index_loc: int) -> TotalQuan
     """
 
     qty_params = element_tags[index_loc].text
-    
+
     qty_sold = process_values_with_mtd(qty_params, 0)
     month_to_date = process_values_with_mtd(qty_params, 1)
 
@@ -159,7 +159,7 @@ def get_quantity_sold_container(element_tags: list, index_loc: int) -> TotalQuan
     """
 
     qty_params = element_tags[index_loc].text
-    
+
     qty_sold = process_values_with_mtd(qty_params, 0)
     month_to_date = process_values_with_mtd(qty_params, 1)
 
