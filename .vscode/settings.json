@@ -5,7 +5,6 @@
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
     "python.analysis.extraPaths": [
-        "./get_commodity",
-        "./get_commodity/src"
+        "./get_commodity"
     ]
 }
