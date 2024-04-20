@@ -8,3 +8,4 @@ api_env
 .pytest_cache
 .gitignore
 .coverage
+.dockerignore
