@@ -3,10 +3,10 @@ import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
 
-from src.utils.get_commodity_sales import get_daily_commodity_sales
-from src.utils.get_container_sales import get_daily_container_sales
-from src.utils.get_transactions import get_commodity_value
-from src.common.page_connect_helper import load_page
+from utils.get_commodity_sales import get_daily_commodity_sales
+from utils.get_container_sales import get_daily_container_sales
+from utils.get_transactions import get_commodity_value
+from common.page_connect_helper import load_page
 
 app = FastAPI()
 
