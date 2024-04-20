@@ -22,8 +22,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: check the url
-      run: echo "The url parsed is $BASE_URL"
     - name: Set up Python 3.9
       uses: actions/setup-python@v3
       with:
