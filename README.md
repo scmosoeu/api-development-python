@@ -4,6 +4,7 @@ Develop a REST API using python programming language
 
 The API is extracting market data from the [johannesburg market website](https://joburgmarket.co.za/jhbmarket/jhb-market/dailyprices.php?).
 
+
 The following command will run the api locally:
 ```bash
 uvicorn main:app --reload
