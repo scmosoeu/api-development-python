@@ -72,7 +72,6 @@ def get_commodity_value(commodity: str, soup: BeautifulSoup) -> list:
 
 
 def process_values_with_mtd(input_string: str, index_loc: int) -> str:
-
     """
     Get current numeric value from the input string
 
